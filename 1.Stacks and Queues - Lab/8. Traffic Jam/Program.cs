@@ -14,12 +14,12 @@
                 {
                     for (int i = 0; i < carPassInGreenLight; i++)
                     {
-                        Console.WriteLine($"{traffic.Dequeue()} passed!");
-                        carPassed++;
                         if (traffic.Count==0)
                         {
                             break;
                         }
+                        Console.WriteLine($"{traffic.Dequeue()} passed!");
+                        carPassed++;
                     }
                     continue;
                 }
