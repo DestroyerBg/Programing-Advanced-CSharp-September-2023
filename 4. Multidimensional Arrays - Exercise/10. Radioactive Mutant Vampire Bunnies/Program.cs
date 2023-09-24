@@ -43,6 +43,7 @@ for (int i = 0; i < commands.Length; i++)
         playerStartCol++;
     }
 
+    matrix[oldPlayerRow, oldPlayerCol] = '.';
     matrix = PopulateBunnies(matrix, rows, cols);
     if (playerStartRow < 0
         || playerStartRow >= rows
