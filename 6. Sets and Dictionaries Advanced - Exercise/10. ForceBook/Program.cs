@@ -5,7 +5,7 @@ while ((input = Console.ReadLine()) != "Lumpawaroo")
     if (input.Contains("|"))
     {
         string[] data = input
-            .Split(" | ",StringSplitOptions.RemoveEmptyEntries)
+            .Split(" | ", StringSplitOptions.RemoveEmptyEntries)
             .ToArray();
         string side = data[0];
         string user = data[1];
@@ -23,14 +23,14 @@ while ((input = Console.ReadLine()) != "Lumpawaroo")
 }
 var orderedSides = allSides
     .OrderByDescending(x => x.Value.Count)
-    .ThenBy(x=>x.Key)
+    .ThenBy(x => x.Key)
     .ToList();
 foreach (var side in orderedSides)
 {
-    if (side.Value.Count>0)
+    if (side.Value.Count > 0)
     {
         Console.WriteLine($"Side: {side.Key}, Members: {side.Value.Count}");
-        foreach (var member in side.Value.OrderBy(x=>x))
+        foreach (var member in side.Value.OrderBy(x => x))
         {
             Console.WriteLine($"! {member}");
         }
@@ -38,14 +38,15 @@ foreach (var side in orderedSides)
 }
 Dictionary<string, HashSet<string>> AddUserToSide(string side, string user, Dictionary<string, HashSet<string>> allSides)
 {
-    if (!allSides.Any(x=>x.Value.Contains(user)))
+    if (!allSides.ContainsKey(side))
     {
-        if (!allSides.ContainsKey(side))
-        {
-            allSides.Add(side, new HashSet<string>());
-        }
+        allSides.Add(side, new HashSet<string>());
     }
-    allSides[side].Add(user);
+
+    if (!allSides.Any(x => x.Value.Contains(user)))
+    {
+        allSides[side].Add(user);
+    }
     return allSides;
 }
 
@@ -58,6 +59,10 @@ Dictionary<string, HashSet<string>> MoveUserToSide(string user, string side, Dic
             entry.Value.Remove(user);
             break;
         }
+    }
+    if (!allSides.ContainsKey(side))
+    {
+        allSides.Add(side, new HashSet<string>());
     }
 
     allSides[side].Add(user);
