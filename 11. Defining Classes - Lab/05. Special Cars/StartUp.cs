@@ -64,11 +64,7 @@
                 foreach (var car in specialCars)
                 {
                     car.Drive(20);
-                    Console.WriteLine($"Make: {car.Make}");
-                    Console.WriteLine($"Model: {car.Model}");
-                    Console.WriteLine($"Year: {car.Year}");
-                    Console.WriteLine($"HorsePowers: {car.Engine.HorsePower}");
-                    Console.WriteLine($"FuelQuantity: {car.FuelQuantity}");
+                    Console.WriteLine(car);
                 }
 
             }

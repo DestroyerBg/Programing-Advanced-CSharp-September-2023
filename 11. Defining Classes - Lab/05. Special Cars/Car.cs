@@ -77,7 +77,7 @@ namespace CarManufacturer
             result.AppendLine($"Year: {Year}");
             result.AppendLine($"HorsePowers: {Engine.HorsePower}");
             result.AppendLine($"FuelQuantity: {FuelQuantity}");
-            return result.ToString();
+            return result.ToString().TrimEnd();
         }
     }
 }
