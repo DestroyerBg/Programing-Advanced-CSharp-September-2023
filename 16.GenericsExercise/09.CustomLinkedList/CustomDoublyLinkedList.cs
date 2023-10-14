@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace CustomDoublyLinkedList
 {
-    public class DoublyLinkedList
+    public class CustomDoublyLinkedList<T>
     {
         private class ListNode
         {
-            public int Value { get; set; }
-            public ListNode NextNode { get; set; }
-            public ListNode PreviousNode { get; set; }
-
-            public ListNode(int value)
+            public ListNode(T value)
             {
                 Value = value;
             }
+            public T Value { get; set; }
+            public ListNode NextNode { get; set; }
+            public ListNode PreviousNode { get; set; }
+
 
         }
         private ListNode Head { get; set; }
         private ListNode Tail { get; set; }
         public int Count { get; private set; }
 
-        public void AddFirst(int element)
+        public void AddFirst(T element)
         {
             if (Count == 0)
             {
-                Tail = Head = new ListNode(element) ;
+                Tail = Head = new ListNode(element);
             }
             else
             {
@@ -41,7 +41,7 @@ namespace CustomDoublyLinkedList
             Count++;
         }
 
-        public void AddLast(int element)
+        public void AddLast(T element)
         {
             if (Count == 0)
             {
@@ -57,7 +57,7 @@ namespace CustomDoublyLinkedList
             Count++;
         }
 
-        public int RemoveFirst()
+        public T RemoveFirst()
         {
             if (Count == 0)
             {
@@ -78,7 +78,7 @@ namespace CustomDoublyLinkedList
             return firstElement;
         }
 
-        public int RemoveLast()
+        public T RemoveLast()
         {
             if (Count == 0)
             {
@@ -99,25 +99,26 @@ namespace CustomDoublyLinkedList
             return lastElement;
         }
 
-        public void ForEach(Action<int> action)
+        public void ForEach(Action<T> action)
         {
             var currNode = Head;
-            while (currNode!=null)
+            while (currNode != null)
             {
                 action(currNode.Value);
                 currNode = currNode.NextNode;
             }
         }
 
-        public int[] ToArray()
+        public T[] ToArray()
         {
-            int[] array = new int[Count];
+            var array = new T[Count];
             int counter = 0;
             var currNode = Head;
             while (currNode != null)
             {
-                array[counter++] = currNode.Value;
+                array[counter] = currNode.Value;
                 currNode = currNode.NextNode;
+                counter++;
             }
             return array;
         }
