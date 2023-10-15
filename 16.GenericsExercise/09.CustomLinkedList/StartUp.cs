@@ -26,3 +26,7 @@ stringList.AddLast("added");
 stringList.ForEach(i => Console.Write(i + " "));
 Console.WriteLine();
 Console.WriteLine(stringList.Count);
+foreach (var item in stringList)
+{
+    Console.WriteLine(item);
+}

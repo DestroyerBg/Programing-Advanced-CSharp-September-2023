@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace _02.CustomStack
 {
-    public class CustomStack : IEnumerable<int>
+    public class CustomStack<T> : IEnumerable<T>
     {
-        private int[] items;
+        private T[] items;
         private const int initialCapacity = 2;
         private int count;
         public CustomStack()
         {
             this.count = 0;
-            items = new int[initialCapacity];
+            items = new T[initialCapacity];
         }
 
         public int Count
@@ -26,7 +26,7 @@ namespace _02.CustomStack
             }
         }
 
-        public void Push(int item)
+        public void Push(T item)
         {
             if (count == items.Length)
             {
@@ -36,31 +36,32 @@ namespace _02.CustomStack
             count++;
         }
 
-        public int Pop()
+        public T Pop()
         {
-            if (items.Length == 0)
+            if (count == 0)
             {
-                throw new ArgumentOutOfRangeException();
+                Console.WriteLine($"No elements");
+                return default;
             }
-            int numToBePopped = items[count-1];
-            items[count-1] = 0;
+            T itemToBePopped = items[count-1];
+            items[count-1] = default;
             count--;
             if (count <= items.Length / 4)
             {
                 ShrinkArray();
             }
-            return numToBePopped;
+            return itemToBePopped;
         }
 
-        public int Peek()
+        public T Peek()
         {
             if (items.Length == 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            int numToBePeeked = items[count-1];
-            return numToBePeeked;
+            T itemToBePeeked = items[count-1];
+            return itemToBePeeked;
         }
 
         public void ForEach(Action<object> action)
@@ -72,7 +73,7 @@ namespace _02.CustomStack
         }
         private void ShrinkArray()
         {
-            int[] copy = new int[items.Length / 2];
+            var copy = new T[items.Length / 2];
             for (int i = 0; i < Count; i++)
             {
                 copy[i] = items[i];
@@ -81,7 +82,7 @@ namespace _02.CustomStack
         }
         private void Resize()
         {
-            int[] copy = new int[items.Length * 2];
+            var copy = new T[items.Length * 2];
             for (int i = 0; i < items.Length; i++)
             {
                 copy[i] = items[i];
@@ -89,9 +90,9 @@ namespace _02.CustomStack
             items = copy;
         }
 
-        public IEnumerator<int> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = Count-1; i >= 0; i--)
             {
                 yield return items[i];
             }

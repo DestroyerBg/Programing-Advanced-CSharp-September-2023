@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace CustomDoublyLinkedList
 {
-    public class CustomDoublyLinkedList<T> : IEnumerable<T>
+    public class DoublyLinkedList
     {
         private class ListNode
         {
-            public ListNode(T value)
-            {
-                Value = value;
-            }
-            public T Value { get; set; }
+            public int Value { get; set; }
             public ListNode NextNode { get; set; }
             public ListNode PreviousNode { get; set; }
 
+            public ListNode(int value)
+            {
+                Value = value;
+            }
 
         }
         private ListNode Head { get; set; }
         private ListNode Tail { get; set; }
         public int Count { get; private set; }
 
-        public void AddFirst(T element)
+        public void AddFirst(int element)
         {
             if (Count == 0)
             {
-                Tail = Head = new ListNode(element);
+                Tail = Head = new ListNode(element) ;
             }
             else
             {
@@ -42,7 +41,7 @@ namespace CustomDoublyLinkedList
             Count++;
         }
 
-        public void AddLast(T element)
+        public void AddLast(int element)
         {
             if (Count == 0)
             {
@@ -58,7 +57,7 @@ namespace CustomDoublyLinkedList
             Count++;
         }
 
-        public T RemoveFirst()
+        public int RemoveFirst()
         {
             if (Count == 0)
             {
@@ -79,7 +78,7 @@ namespace CustomDoublyLinkedList
             return firstElement;
         }
 
-        public T RemoveLast()
+        public int RemoveLast()
         {
             if (Count == 0)
             {
@@ -100,41 +99,27 @@ namespace CustomDoublyLinkedList
             return lastElement;
         }
 
-        public void ForEach(Action<T> action)
+        public void ForEach(Action<int> action)
         {
             var currNode = Head;
-            while (currNode != null)
+            while (currNode!=null)
             {
                 action(currNode.Value);
                 currNode = currNode.NextNode;
             }
         }
 
-        public T[] ToArray()
+        public int[] ToArray()
         {
-            var array = new T[Count];
+            int[] array = new int[Count];
             int counter = 0;
             var currNode = Head;
             while (currNode != null)
             {
-                array[counter] = currNode.Value;
+                array[counter++] = currNode.Value;
                 currNode = currNode.NextNode;
-                counter++;
             }
             return array;
         }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            ListNode currNode = this.Head;
-            while (currNode!= null)
-            {
-                yield return currNode.Value;
-                currNode = currNode.NextNode;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        
     }
 }
